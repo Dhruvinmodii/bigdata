@@ -1,0 +1,257 @@
+1. Display all the documents of the collection.
+2. Show only the first name and last name of all the students.
+3. Display the list of unique cities of the students.
+4. Retrieve the student‟s date of birth along with the student first name and last name.
+5. Get all the details of students whose city is “Surat”.
+6. Arrange all the documents of students in ascending order using “enro” number.
+7. Show the details of just the first five documents of the students.
+8. Display only the details of last three documents of the students.
+9. View the list of male students whose city is “Valsad”.
+10. Display all the documents in descending order.
+11. Display the list of first four students whose city is “Valsad” in order.
+12. Update the contact number and date of birth of “Monis” to “6852987530” and
+“06/01/1999” respectively.
+13. Find only the date of birth of “Om”.
+14. Insert the document (100, Rohit, Mehera, Mumbai, 24/03/2003) in the collection.
+15. Display the list of male students whose last name is “Patel”.
+16. Insert the document (35, Priyank, Mistry, Anand, 18/06/2000, 9000800001) in the
+collection.
+17. Show all the details of student whose enrollment number is “102”.
+18. Display the list of students whose gender in “NULL” or 0.
+
+//DIRECT RUN
+
+use bmiit2022;
+
+db.createCollection("Students")
+
+db.Students.insert({"enro":4,"Fname":"Isha","Lname":"Motiyani","City":"Surat","gender":"F","contactno":9874563210,"dob":"12/09/2000"});
+db.Students.insert({"enro":102,"Fname":"Anish","Lname":"Patel","City":"Valsad","gender":"M","contactno":9632587410,"dob":"06/01/2001"});
+db.Students.insert({"enro":103,"Fname":"Kalp","Lname":"Shah","City":"Baroda","gender":"M","contactno":9630125874,"dob":"13/10/2000"});
+db.Students.insert({"enro":104,"Fname":"Yash","Lname":"Bhakta","City":"Mumbai","gender":"M","contactno":9987452103,"dob":"08/05/2001"});
+db.Students.insert({"enro":84,"Fname":"Aparana","Lname":"Mukherjee","City":"Surat","gender":"F","contactno":8563247890,"dob":"26/06/2001"});
+db.Students.insert({"enro":8,"Fname":"Arjun","Lname":"Poduval","City":"Vapi","gender":"M","contactno":8965230147,"dob":"01/05/2001"});
+db.Students.insert({"enro":105,"Fname":"Riya","Lname":"Agrawal","City":"Navsari","gender":"F","contactno":6985321470,"dob":"02/09/2000"});
+db.Students.insert({"enro":79,"Fname":"Monis","Lname":"Khan","City":"Bardoli","gender":"M","contactno":7895231053,"dob":"23/11/2000"});
+db.Students.insert({"enro":106,"Fname":"Abhishek","Lname":"Choksi","City":"Surat","gender":"M","contactno":6985327410,"dob":"18/07/2001"});
+db.Students.insert({"enro":49,"Fname":"Om","Lname":"Patel","City":"Valsad","gender":"M","contactno":9985632100,"dob":"15/05/2001"});
+
+show collections;
+
+db.Students.find({}, {"_id":0, "Fname":1, "Lname":1}).pretty();
+
+db.Students.distinct("City");
+
+db.Students.find({}, {"_id":0, "Fname":1, "Lname":1, "dob":1}).pretty();
+
+db.Students.find({"City":"Surat"}).pretty();
+
+db.Students.find().sort({"enro":1}).pretty();
+
+db.Students.find().limit(5).pretty();
+
+db.Students.find().sort({_id:-1}).limit(3).pretty();
+
+db.Students.find({"City":"Valsad" , "gender":"M"}).pretty();
+
+db.Students.find().sort({"_id":-1}).pretty();
+
+db.Students.find({"City":"Valsad"}).limit(4).pretty();
+
+db.Students.update({"Fname" : "Monis"},{$set : {"contactno" : "6852987530" , "dob" : "06/01/1999"} })
+
+
+db.Students.find({"Fname":"Om"},{dob:1 , _id:0}).pretty();
+
+db.Students.insert({"enro":100,"Fname":"Rohit","Lname":"Mehra","City":"Mumbai","contactno":6852987530,"dob":"06/01/1999"});
+
+db.Students.find({"Lname":"Patel","gender":"M"}).pretty();
+
+db.Students.insert({"enro":35,"Fname":"Priyank","Lname":"Mistry","City":"Anand","contactno":9000800001});
+
+db.Students.find({"enro":102}).pretty();
+
+db.Students.find({"gender": {$eq : null}}).pretty();
+
+db.Students.update({"enro":100},{$set : {"gender" : "M"}});
+db.Students.update({"enro":35},{$set : {"gender":"M" , "dob":"24/12/2000"}})
+
+
+db.Students.remove({"City":"Vapi"});
+
+db.Students.find().skip(5).pretty();
+
+db.Students.find({"Fname" : {$regex: "^.a.*"}},{"Fname":1 , "_id":0});
+
+
+db.Students.find({City : "Bardoli", Fname : /^M.*$/}).pretty();
+OR
+db.Students.find({City: "Bardoli" , Fname: {$regex : /^M.*$/}}).pretty();
+
+db.Students.count();
+
+db.Students.remove({});
+
+
+
+
+
+
+==============================================================================================
+
+
+use bmiit2022
+db.createCollection("Items")
+
+db.Items.insert({_id: "TP01", name: "Talcom Powder", manufacturer: "Persona", price: 40, qty: 45, stockdate: "11-02-18", dealer: "Krishna Cosmetik"})
+db.Items.insert({_id: "FW05", name: "Face Wash", manufacturer: "Attitude", price: 45, qty: 55, stockdate: "15-04-18", dealer: "Surbhi Collection"})
+db.Items.insert({_id: "BS01", name: "Bath Soap", manufacturer: "Persona", price: 55, qty: 80, stockdate: "11-02-18", dealer: "Krishna Cosmetik"})
+db.Items.insert({_id: "SH06", name: "Shampoo", manufacturer: "Patanjali", price: 12, qty: 50, stockdate: "05-01-17", dealer: "Surbhi Collection"})
+db.Items.insert({_id: "FW12", name: "Face Wash", manufacturer: "Loreal", price: 95, qty: 45, stockdate: "05-01-16", dealer: "Surbhi Collection"})
+db.Items.insert({_id: "S5005", name: "Ball Pen 0.5", manufacturer: "Nataraj Classic", price: 16, qty: 100, stockdate: "31-03-10", dealer: "Clear Deals"})
+db.Items.insert({_id: "S5003", name: "Ball Pen 0.25", manufacturer: "Nataraj Classic", price: 20, qty: 150, stockdate: "01-01-10", dealer: "Clear Deals"})
+db.Items.insert({_id: "S5002", name: "Gel Pen Premium", manufacturer: "Pilot Juice", price: 14, qty: 125, stockdate: "14-02-10", dealer: "Reliable Stationers"})
+db.Items.insert({_id: "S5006", name: "Gel Pen Classic", manufacturer: "Pilot Juice", price: 22, qty: 200, stockdate: "01-01-10", dealer: "Reliable Stationers"})
+db.Items.insert({_id: "S5001", name: "Eraser Small", manufacturer: "Apsara", price: 15, qty: 210, stockdate: "19-03-09", dealer: "Clear Deals"})
+db.Items.insert({_id: "S5004", name: "Eraser Big", manufacturer: "Apsara", price: 10, qty: 60, stockdate: "12-12-09", dealer: "Clear Deals"})
+db.Items.insert({_id: "S5009", name: "Sharper Classic", manufacturer: "Nataraj Classic", price: 18, qty: 160, stockdate: "23-01-09", dealer: "Classic Plastics"})
+
+1.Display only the name and price of items, whose manufacturer is “Persona”.
+	db.Items.find({manufacturer:"Persona"},{name:1,price:1,_id:0});
+
+2.Count the total number of manufacturers.
+	db.Items.distinct("manufacturer").length;
+
+3.Display all the item’s details, whose names starts from "Sh".
+	db.Items.find({name : /^Sh.*$/},{name:1,_id:0}).pretty()
+
+4.Display the items details of all different types of pens.
+	db.Items.find({name: {$regex : /^.*Pen.*$/}}).pretty()
+
+5.Display only the name and price of product along with quantity, whose price is more than 80.
+	db.Items.find({price:{$gt : 80}},{name:1,price:1,qty:1,_id:0}).pretty()
+
+6.Show only the item and its price of those items, whose price is less equal to 20.
+	db.Items.find({price:{$lte:20}},{name:1,price:1,_id:0}).pretty()
+
+7.Display the details of those items; whose dealer code is 102 or quantity is more than 100.
+	db.Items.find({$or:[{_id:102},{qty:{$gt:100}}]}).pretty()
+
+8.Show the details of items, whose quantity is in the range of 50 to 100.
+	db.Items.find({$and:[{qty:{$gt:50}},{qty:{$lt:100}}]}).pretty()
+
+9.Increase the price of items by 10.
+	db.Items.updateMany({},{$inc:{price:10}})
+
+10.Decrease the quantity of items by 30.
+	db.Items.updateMany({},{$inc:{qty:-30}})
+
+11.Update the price of items by increasing 15%.
+	db.Items.updateMany({}, {$mul: { price: 1.15 } });
+
+12.Find the maximum and minimum price of item in a single query.
+	db.Items.aggregate([
+  {
+    "$group": {
+      "_id": null,
+      "max_price" : {"$max": "$price"},
+      "min_price" : {"$min": "$price"}
+    }
+  }
+])
+
+13.Calculate the average of item price.
+db.Items.aggregate([
+  {
+    "$group": {
+      "_id": null,
+      "Average_price" : {"$avg": "$price"},
+    }
+  }
+])
+
+14.Calculate the total amount of items and find the average of it.
+db.Items.aggregate([
+  {
+    "$group": {
+      "_id": null,
+      "Total" : {$avg: {"$multiply": ["$price","$qty"]}}
+    }
+  }
+])
+	
+
+=================================================================================
+
+mongoimport --db newdb --collection demo --file Sample.json
+
+mongoimport --jsonArray --db newdb --collection demo --file Sample.json
+
+mongoimport --db olddb --collection rest --file /bmiit/stud/201806100110016/Downloads/Sample.json
+
+mongoimport --db gfg --collection demo --type csv --file Demo_CSV.csv --headerline
+
+mongoimport --db gfg --collection demo --type csv --fields "Year","Variable_code" --file Demo_CSV.csv 
+
+
+
+
+-----EXPORT-------
+mongoexport --db gfg --collection demo --out sampledemooooo.csv
+
+mongoexport --db gfg --collection demo --out sampledemooooo.json
+
+mongoexport --db gfg --collection demo --fields Year --out sampledemooooo.csv
+
+=========================================================================================
+
+
+
+db.inventory.insertMany([
+   { item: "journal", qty: 25, tags: ["blank", "red"], dim_cm: [ 14, 21 ] },
+   { item: "notebook", qty: 50, tags: ["red", "blank"], dim_cm: [ 14, 21 ] },
+   { item: "paper", qty: 100, tags: ["red", "blank", "plain"], dim_cm: [ 14, 21 ] },
+   { item: "planner", qty: 75, tags: ["blank", "red"], dim_cm: [ 22.85, 30 ] },
+   { item: "postcard", qty: 45, tags: ["blue"], dim_cm: [ 10, 15.25 ] }
+]);
+
+
+db.inventory.find( { tags: ["red", "blank"] } )
+
+db.inventory.find( { tags: { $all: ["red", "blank"] } } )
+
+db.inventory.find( { dim_cm: { $gt: 25 } } )
+
+
+=========================================================================================
+
+db.Items.mapReduce(function() 
+{
+	emit(this.dealer,this.price)
+},
+	function(dealer,price)
+	{
+		return Array.sum(price);
+	},
+	{
+		out:"resultCollection1"
+	}
+	
+);
+
+
+
+db.Items.mapReduce(function() 
+{
+	emit(this.dealer,this.price)
+},
+	function(dealer,price)
+	{
+		return Array.sum(price);
+	},
+	{
+		query:{ qty : {$gt : 50 }},
+		out:"resultCollection1"
+	}
+	
+);
