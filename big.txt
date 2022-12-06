@@ -93,95 +93,148 @@ db.Students.count();
 db.Students.remove({});
 
 
-
-
-
-
-==============================================================================================
+==================================================================================================================
 
 
 use bmiit2022
 db.createCollection("Items")
 
-db.Items.insert({_id: "TP01", name: "Talcom Powder", manufacturer: "Persona", price: 40, qty: 45, stockdate: "11-02-18", dealer: "Krishna Cosmetik"})
-db.Items.insert({_id: "FW05", name: "Face Wash", manufacturer: "Attitude", price: 45, qty: 55, stockdate: "15-04-18", dealer: "Surbhi Collection"})
-db.Items.insert({_id: "BS01", name: "Bath Soap", manufacturer: "Persona", price: 55, qty: 80, stockdate: "11-02-18", dealer: "Krishna Cosmetik"})
-db.Items.insert({_id: "SH06", name: "Shampoo", manufacturer: "Patanjali", price: 12, qty: 50, stockdate: "05-01-17", dealer: "Surbhi Collection"})
-db.Items.insert({_id: "FW12", name: "Face Wash", manufacturer: "Loreal", price: 95, qty: 45, stockdate: "05-01-16", dealer: "Surbhi Collection"})
-db.Items.insert({_id: "S5005", name: "Ball Pen 0.5", manufacturer: "Nataraj Classic", price: 16, qty: 100, stockdate: "31-03-10", dealer: "Clear Deals"})
-db.Items.insert({_id: "S5003", name: "Ball Pen 0.25", manufacturer: "Nataraj Classic", price: 20, qty: 150, stockdate: "01-01-10", dealer: "Clear Deals"})
-db.Items.insert({_id: "S5002", name: "Gel Pen Premium", manufacturer: "Pilot Juice", price: 14, qty: 125, stockdate: "14-02-10", dealer: "Reliable Stationers"})
-db.Items.insert({_id: "S5006", name: "Gel Pen Classic", manufacturer: "Pilot Juice", price: 22, qty: 200, stockdate: "01-01-10", dealer: "Reliable Stationers"})
-db.Items.insert({_id: "S5001", name: "Eraser Small", manufacturer: "Apsara", price: 15, qty: 210, stockdate: "19-03-09", dealer: "Clear Deals"})
-db.Items.insert({_id: "S5004", name: "Eraser Big", manufacturer: "Apsara", price: 10, qty: 60, stockdate: "12-12-09", dealer: "Clear Deals"})
-db.Items.insert({_id: "S5009", name: "Sharper Classic", manufacturer: "Nataraj Classic", price: 18, qty: 160, stockdate: "23-01-09", dealer: "Classic Plastics"})
+db.Items.insert({\_id: "TP01", name: "Talcom Powder", manufacturer: "Persona", price: 40, qty: 45, stockdate: "11-02-18", dealer: "Krishna Cosmetik"})
+db.Items.insert({\_id: "FW05", name: "Face Wash", manufacturer: "Attitude", price: 45, qty: 55, stockdate: "15-04-18", dealer: "Surbhi Collection"})
+db.Items.insert({\_id: "BS01", name: "Bath Soap", manufacturer: "Persona", price: 55, qty: 80, stockdate: "11-02-18", dealer: "Krishna Cosmetik"})
+db.Items.insert({\_id: "SH06", name: "Shampoo", manufacturer: "Patanjali", price: 12, qty: 50, stockdate: "05-01-17", dealer: "Surbhi Collection"})
+db.Items.insert({\_id: "FW12", name: "Face Wash", manufacturer: "Loreal", price: 95, qty: 45, stockdate: "05-01-16", dealer: "Surbhi Collection"})
+db.Items.insert({\_id: "S5005", name: "Ball Pen 0.5", manufacturer: "Nataraj Classic", price: 16, qty: 100, stockdate: "31-03-10", dealer: "Clear Deals"})
+db.Items.insert({\_id: "S5003", name: "Ball Pen 0.25", manufacturer: "Nataraj Classic", price: 20, qty: 150, stockdate: "01-01-10", dealer: "Clear Deals"})
+db.Items.insert({\_id: "S5002", name: "Gel Pen Premium", manufacturer: "Pilot Juice", price: 14, qty: 125, stockdate: "14-02-10", dealer: "Reliable Stationers"})
+db.Items.insert({\_id: "S5006", name: "Gel Pen Classic", manufacturer: "Pilot Juice", price: 22, qty: 200, stockdate: "01-01-10", dealer: "Reliable Stationers"})
+db.Items.insert({\_id: "S5001", name: "Eraser Small", manufacturer: "Apsara", price: 15, qty: 210, stockdate: "19-03-09", dealer: "Clear Deals"})
+db.Items.insert({\_id: "S5004", name: "Eraser Big", manufacturer: "Apsara", price: 10, qty: 60, stockdate: "12-12-09", dealer: "Clear Deals"})
+db.Items.insert({\_id: "S5009", name: "Sharper Classic", manufacturer: "Nataraj Classic", price: 18, qty: 160, stockdate: "23-01-09", dealer: "Classic Plastics"})
 
 1.Display only the name and price of items, whose manufacturer is “Persona”.
-	db.Items.find({manufacturer:"Persona"},{name:1,price:1,_id:0});
+db.Items.find({manufacturer:"Persona"},{name:1,price:1,\_id:0});
 
 2.Count the total number of manufacturers.
-	db.Items.distinct("manufacturer").length;
+db.Items.distinct("manufacturer").length;
 
 3.Display all the item’s details, whose names starts from "Sh".
-	db.Items.find({name : /^Sh.*$/},{name:1,_id:0}).pretty()
+db.Items.find({name : /^Sh.\*$/},{name:1,\_id:0}).pretty()
 
 4.Display the items details of all different types of pens.
-	db.Items.find({name: {$regex : /^.*Pen.*$/}}).pretty()
+db.Items.find({name: {$regex : /^.*Pen.*$/}}).pretty()
 
 5.Display only the name and price of product along with quantity, whose price is more than 80.
-	db.Items.find({price:{$gt : 80}},{name:1,price:1,qty:1,_id:0}).pretty()
+db.Items.find({price:{$gt : 80}},{name:1,price:1,qty:1,\_id:0}).pretty()
 
 6.Show only the item and its price of those items, whose price is less equal to 20.
-	db.Items.find({price:{$lte:20}},{name:1,price:1,_id:0}).pretty()
+db.Items.find({price:{$lte:20}},{name:1,price:1,\_id:0}).pretty()
 
 7.Display the details of those items; whose dealer code is 102 or quantity is more than 100.
-	db.Items.find({$or:[{_id:102},{qty:{$gt:100}}]}).pretty()
+db.Items.find({$or:[{_id:102},{qty:{$gt:100}}]}).pretty()
 
 8.Show the details of items, whose quantity is in the range of 50 to 100.
-	db.Items.find({$and:[{qty:{$gt:50}},{qty:{$lt:100}}]}).pretty()
+db.Items.find({$and:[{qty:{$gt:50}},{qty:{$lt:100}}]}).pretty()
 
 9.Increase the price of items by 10.
-	db.Items.updateMany({},{$inc:{price:10}})
+db.Items.updateMany({},{$inc:{price:10}})
 
 10.Decrease the quantity of items by 30.
-	db.Items.updateMany({},{$inc:{qty:-30}})
+db.Items.updateMany({},{$inc:{qty:-30}})
 
 11.Update the price of items by increasing 15%.
-	db.Items.updateMany({}, {$mul: { price: 1.15 } });
+db.Items.updateMany({}, {$mul: { price: 1.15 } });
 
 12.Find the maximum and minimum price of item in a single query.
-	db.Items.aggregate([
-  {
-    "$group": {
-      "_id": null,
-      "max_price" : {"$max": "$price"},
-      "min_price" : {"$min": "$price"}
-    }
-  }
+db.Items.aggregate([
+{
+"$group": {
+"_id": null,
+"max_price" : {"$max": "$price"},
+"min_price" : {"$min": "$price"}
+}
+}
 ])
 
 13.Calculate the average of item price.
 db.Items.aggregate([
-  {
-    "$group": {
-      "_id": null,
-      "Average_price" : {"$avg": "$price"},
-    }
-  }
+{
+"$group": {
+"_id": null,
+"Average_price" : {"$avg": "$price"},
+}
+}
 ])
 
 14.Calculate the total amount of items and find the average of it.
 db.Items.aggregate([
-  {
-    "$group": {
+{
+"$group": {
       "_id": null,
       "Total" : {$avg: {"$multiply": ["$price","$qty"]}}
-    }
-  }
+}
+}
 ])
-	
 
-=================================================================================
+{ _id: 1, cust_id: "abc1", ord_date: ISODate("2012-11-02T17:04:11.102Z"), status: "A", amount: 50 }
+{ _id: 2, cust_id: "xyz1", ord_date: ISODate("2013-10-01T17:04:11.102Z"), status: "A", amount: 100 }
+{ _id: 3, cust_id: "xyz1", ord_date: ISODate("2013-10-12T17:04:11.102Z"), status: "D", amount: 25 }
+{ _id: 4, cust_id: "xyz1", ord_date: ISODate("2013-10-11T17:04:11.102Z"), status: "D", amount: 125 }
+{ _id: 5, cust_id: "abc1", ord_date: ISODate("2013-11-12T17:04:11.102Z"), status: "A", amount: 25 }
+
+db.orders.aggregate([
+                     { $match: { status: "A" } },
+                     { $group: { _id: "$cust_id", total: { $sum: "$amount" } } },
+                     { $sort: { total: -1 } }
+                   ])
+
+output
+{ "_id" : "xyz1", "total" : 100 }
+{ "_id" : "abc1", "total" : 75 }
+
+//MAP REDUCE
+db.orders.insertMany([
+   { _id: 1, cust_id: "Ant O. Knee", ord_date: new Date("2020-03-01"), price: 25, items: [ { sku: "oranges", qty: 5, price: 2.5 }, { sku: "apples", qty: 5, price: 2.5 } ], status: "A" },
+   { _id: 2, cust_id: "Ant O. Knee", ord_date: new Date("2020-03-08"), price: 70, items: [ { sku: "oranges", qty: 8, price: 2.5 }, { sku: "chocolates", qty: 5, price: 10 } ], status: "A" },
+   { _id: 3, cust_id: "Busby Bee", ord_date: new Date("2020-03-08"), price: 50, items: [ { sku: "oranges", qty: 10, price: 2.5 }, { sku: "pears", qty: 10, price: 2.5 } ], status: "A" },
+   { _id: 4, cust_id: "Busby Bee", ord_date: new Date("2020-03-18"), price: 25, items: [ { sku: "oranges", qty: 10, price: 2.5 } ], status: "A" },
+   { _id: 5, cust_id: "Busby Bee", ord_date: new Date("2020-03-19"), price: 50, items: [ { sku: "chocolates", qty: 5, price: 10 } ], status: "A"},
+   { _id: 6, cust_id: "Cam Elot", ord_date: new Date("2020-03-19"), price: 35, items: [ { sku: "carrots", qty: 10, price: 1.0 }, { sku: "apples", qty: 10, price: 2.5 } ], status: "A" },
+   { _id: 7, cust_id: "Cam Elot", ord_date: new Date("2020-03-20"), price: 25, items: [ { sku: "oranges", qty: 10, price: 2.5 } ], status: "A" },
+   { _id: 8, cust_id: "Don Quis", ord_date: new Date("2020-03-20"), price: 75, items: [ { sku: "chocolates", qty: 5, price: 10 }, { sku: "apples", qty: 10, price: 2.5 } ], status: "A" },
+   { _id: 9, cust_id: "Don Quis", ord_date: new Date("2020-03-20"), price: 55, items: [ { sku: "carrots", qty: 5, price: 1.0 }, { sku: "apples", qty: 10, price: 2.5 }, { sku: "oranges", qty: 10, price: 2.5 } ], status: "A" },
+   { _id: 10, cust_id: "Don Quis", ord_date: new Date("2020-03-23"), price: 25, items: [ { sku: "oranges", qty: 10, price: 2.5 } ], status: "A" }
+])
+
+
+var mapFunction1 = function() {
+   emit(this.cust_id, this.price);
+};
+
+var reduceFunction1 = function(keyCustId, valuesPrices) {
+   return Array.sum(valuesPrices);
+};
+
+db.orders.mapReduce(
+   mapFunction1,
+   reduceFunction1,
+   { out: "map_reduce_example" }
+)
+
+db.map_reduce_example.find().sort( { _id: 1 } )
+
+// alternate solutaion using aggregate
+
+db.orders.aggregate([
+   { $group: { _id: "$cust_id", value: { $sum: "$price" } } },
+   { $out: "agg_alternative_1" }
+])
+
+db.agg_alternative_1.find().sort( { _id: 1 } )
+
+
+====================================================================================================================
+
 
 mongoimport --db newdb --collection demo --file Sample.json
 
@@ -194,8 +247,6 @@ mongoimport --db gfg --collection demo --type csv --file Demo_CSV.csv --headerli
 mongoimport --db gfg --collection demo --type csv --fields "Year","Variable_code" --file Demo_CSV.csv 
 
 
-
-
 -----EXPORT-------
 mongoexport --db gfg --collection demo --out sampledemooooo.csv
 
@@ -203,55 +254,3 @@ mongoexport --db gfg --collection demo --out sampledemooooo.json
 
 mongoexport --db gfg --collection demo --fields Year --out sampledemooooo.csv
 
-=========================================================================================
-
-
-
-db.inventory.insertMany([
-   { item: "journal", qty: 25, tags: ["blank", "red"], dim_cm: [ 14, 21 ] },
-   { item: "notebook", qty: 50, tags: ["red", "blank"], dim_cm: [ 14, 21 ] },
-   { item: "paper", qty: 100, tags: ["red", "blank", "plain"], dim_cm: [ 14, 21 ] },
-   { item: "planner", qty: 75, tags: ["blank", "red"], dim_cm: [ 22.85, 30 ] },
-   { item: "postcard", qty: 45, tags: ["blue"], dim_cm: [ 10, 15.25 ] }
-]);
-
-
-db.inventory.find( { tags: ["red", "blank"] } )
-
-db.inventory.find( { tags: { $all: ["red", "blank"] } } )
-
-db.inventory.find( { dim_cm: { $gt: 25 } } )
-
-
-=========================================================================================
-
-db.Items.mapReduce(function() 
-{
-	emit(this.dealer,this.price)
-},
-	function(dealer,price)
-	{
-		return Array.sum(price);
-	},
-	{
-		out:"resultCollection1"
-	}
-	
-);
-
-
-
-db.Items.mapReduce(function() 
-{
-	emit(this.dealer,this.price)
-},
-	function(dealer,price)
-	{
-		return Array.sum(price);
-	},
-	{
-		query:{ qty : {$gt : 50 }},
-		out:"resultCollection1"
-	}
-	
-);
